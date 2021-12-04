@@ -191,6 +191,21 @@ def create_table(path='data/'):
                 lista.append(0)
         except:
             lista.append(0)
+        
+        # Valor de propiedades
+        lista.append(lista[-3]+lista[-4]+lista[-5])
+
+        # Valor con inversiones
+        lista.append(lista[-1]+lista[-3])
+
+        # Valor neto (Valor con inversiones menos deudas)
+        lista.append(lista[-1]-lista[-3])
+        
+        # Ha tenido sanciones
+        if len(df.loc[lista[2]]["Multas"])==0:
+            lista.append(0) # No se le ha sancionado
+        else:
+            lista.append(1) # Se le ha sancionado
 
         # TODO: Gastos totales = deltas de las propiedades.
         gastos = 0
@@ -207,6 +222,7 @@ def create_table(path='data/'):
                                                     "numeroDependientes", "remuneracionCargo",
                                                     "ingresosAnuales", "bienesInmuebles",
                                                     "vehiculos", "bienesMuebles", "inversiones",
-                                                    "adeudos"])
+                                                    "adeudos", "propiedades", "propiedades_inversiones",
+                                                    "valor_neto", "multas"])
 
     return df_declaraciones
