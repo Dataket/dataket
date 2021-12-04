@@ -91,7 +91,7 @@ def create_table(path='data/'):
                         "ingresos"]["remuneracionAnualCargoPublico"]["valor"]
                     lista.append(valor)
                 except:
-                    pass
+                    lista.append(0)
 
         # Ingreso anual promedio
         try:
@@ -106,7 +106,8 @@ def create_table(path='data/'):
                     valor = declaracion["declaracion"]["situacionPatrimonial"]["ingresos"]["ingresoAnualNetoDeclarante"]["valor"]
                     lista.append(valor)
                 except:
-                    pass
+                    valor = declaraciones[i]["declaracion"]["situacionPatrimonial"]["ingresos"]["totalIngresosConclusionNetos"]["valor"]
+                    lista.append(valor) 
 
         # Valor total de bienes inmuebles.
         try:
