@@ -160,7 +160,7 @@ def create_table(path='data/'):
                 for propiedad in declaracion["declaracion"]["situacionPatrimonial"]["inversiones"]["inversion"]:
                     try:
                         propiedades += (1+int(propiedad["porcentajeIncrementoDecremento"]
-                                              [:-1]))*propiedad["saldoDiciembreAnterior"]["valor"]
+                                              [:-1])/100)*propiedad["saldoDiciembreAnterior"]["valor"]
                     except:
                         try:
                             propiedades += propiedad["saldoSituacionActual"]["valor"]
@@ -178,7 +178,7 @@ def create_table(path='data/'):
                 propiedades = 0
                 for propiedad in declaracion["declaracion"]["situacionPatrimonial"]["adeudos"]["adeudo"]:
                     try:
-                        propiedades += (1+int(propiedad["porcentajeIncrementoDecremento"][:-1])
+                        propiedades += (1+int(propiedad["porcentajeIncrementoDecremento"][:-1])/100
                                         )*propiedad["saldoInsolutoDiciembreAnterior"]["valor"]
                     except:
                         try:
