@@ -89,7 +89,7 @@ def grafica_serie_temporal(anio, valor, cadena, path = 'html_viz/'):
 
         # Se grafica la recta por mínimos cuadrados
         # Se evita que el ajuste no esté definido
-        if np.count_nonzero(np.isnan(ajuste)) != 0:
+        if (auxiliar["Valor"].diff()!=0).sum()>1:
             fig.add_trace(go.Line(x=auxiliar["Anio"],
                           y=recta(auxiliar["Anio"]-anio_minimo),
                           showlegend=False,
@@ -188,8 +188,8 @@ def declaracion_pvalue(df_curp, curp, variable):
     """
 
     if curp in set(df_curp["curp"]):
-        columna = df_curp[variable]
-        registro = df_curp[df_curp["curp"] == curp][variable].iloc[0]
-        # Se promedia el número de registros de la muestra superiores
-        # al estadístico de prueba
-        return len(columna[columna >= registro])/len(columna)
+    columna = df_curp[variable]
+    registro = df_curp[df_curp["curp"]==curp][variable].iloc[0]
+    # Se promedia el número de registros de la muestra superiores
+    # al estadístico de prueba
+    return len(columna[columna<registro])/len(columna), len(columna[columna>registro])/len(columna)
