@@ -121,9 +121,6 @@ def declaracion_muestra(df_sobre_declaraciones, variable_x, variable_y):
     Returns:
         [type]: [description]
     """
-    # Cargamos dataframes de navegación
-    df_curp = consultas()
-    df_declaraciones = limpia_declaraciones()
 
     lista = []
     for curp in set(df_sobre_declaraciones["curp"]):
