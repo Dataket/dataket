@@ -10,6 +10,7 @@ import seaborn as sns
 import plotly
 import plotly.express as px
 import plotly.graph_objects as go
+from .navigation import consultas, limpia_declaraciones
 
 # Para ML
 from sklearn.cluster import KMeans
@@ -18,8 +19,7 @@ from sklearn.cluster import KMeans
 colors = ["#264653", "#2a9d8f", "#e9C46a", "#F4A261", "#E76F51"]
 
 
-def declaracion_personal(df_curp, df_declaraciones, curp,
-variable_x="anio", variable_y="valor_neto"):
+def declaracion_personal(curp, variable_x="anio", variable_y="valor_neto"):
     """Se crean un par de arreglos a partir de las variables  indicadas
 
     Args:
@@ -32,6 +32,11 @@ variable_x="anio", variable_y="valor_neto"):
     Returns:
         [type]: [description]
     """
+
+    # Cargamos dataframes de navegación
+    df_curp = consultas()
+    df_declaraciones = limpia_declaraciones()
+
     # Se revisa que el curp exista en las declaraciones
     if len(df_curp.loc[curp]["Declaraciones"]) > 0:
         # Se construyen las listas
@@ -116,10 +121,14 @@ def declaracion_muestra(df_sobre_declaraciones, variable_x, variable_y):
     Returns:
         [type]: [description]
     """
+    # Cargamos dataframes de navegación
+    df_curp = consultas()
+    df_declaraciones = limpia_declaraciones()
+
     lista = []
     for curp in set(df_sobre_declaraciones["curp"]):
 
-        anio, valor = declaracion_personal(curp, variable_x, variable_y)
+        anio, valor = declaracion_personal(df_curp, df_declaraciones, curp, variable_x, variable_y)
 
         # Se eliminan los datos que repiten año
         auxiliar = pd.DataFrame({'Anio': np.array(anio),
