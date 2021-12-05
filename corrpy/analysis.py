@@ -53,7 +53,7 @@ def declaracion_personal(curp, variable_x="anio", variable_y="valor_neto"):
         return anios[:], valores[:]
 
 
-def grafica_serie_temporal(anio, valor, cadena, path = 'html_viz/'):
+def grafica_serie_temporal(anio, valor, cadena, path='html_viz/'):
     """Regresión lineal de una serie temporal
 
     Se crea la gráfica de un par de arreglos y se les hace un ajuste
@@ -89,7 +89,7 @@ def grafica_serie_temporal(anio, valor, cadena, path = 'html_viz/'):
 
         # Se grafica la recta por mínimos cuadrados
         # Se evita que el ajuste no esté definido
-        if (auxiliar["Valor"].diff()!=0).sum()>1:
+        if (auxiliar["Valor"].diff() != 0).sum() > 1:
             fig.add_trace(go.Line(x=auxiliar["Anio"],
                           y=recta(auxiliar["Anio"]-anio_minimo),
                           showlegend=False,
@@ -105,10 +105,11 @@ def grafica_serie_temporal(anio, valor, cadena, path = 'html_viz/'):
 
         # Se guarda el html para poder usarlo en la página web de Dataket 8)
         plotly.offline.plot(fig,
-        filename=path+'scatter_'+cadena.replace(" ", "")+'.html')
+                            filename=path+'scatter_'+cadena.replace(" ", "")+'.html')
 
         # Se muestra la imagen
         fig.show()
+
 
 def declaracion_muestra(df_sobre_declaraciones, variable_x, variable_y):
     """Se realiza una muestra para hacer comparaciones entre las varianzas
@@ -189,7 +190,9 @@ def declaracion_pvalue(df_curp, curp, variable):
 
     if curp in set(df_curp["curp"]):
         columna = df_curp[variable]
-        registro = df_curp[df_curp["curp"]==curp][variable].iloc[0]
+        registro = df_curp[df_curp["curp"] == curp][variable].iloc[0]
         # Se promedia el número de registros de la muestra superiores
         # al estadístico de prueba
-        return len(columna[columna<registro])/len(columna), len(columna[columna>registro])/len(columna)
+        return len(columna[columna < registro])/len(columna), len(columna[columna > registro])/len(columna)
+
+

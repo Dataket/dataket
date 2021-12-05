@@ -8,6 +8,7 @@ from os.path import exists
 # Se importan las librerías para el análisis de datos
 import pandas as pd
 import numpy as np
+from.analysis import declaracion_pvalue
 
 # Se define la paleta de colores de Dataket 8)
 colors = ["#264653", "#2a9d8f", "#e9C46a", "#F4A261", "#E76F51"]
@@ -512,3 +513,40 @@ def agrupar_curp(path='bin/curp.pkl'):
     else:
         df_curp = pd.read_pickle(path)
         return df_curp
+
+
+def interesantes(path = 'bin/interesantes.pkl'):
+    """ Se crea la lista de outliers al nivel de confianza de 99.9%
+
+    Args:
+        path (str, optional): [description]. Defaults to 'bin/interesantes.pkl'.
+
+    Returns:
+        [type]: [description]
+    """
+    df_curp = agrupar_curp()
+    if not exists(path):
+        lista = []
+        for curp in set(df_curp["curp"]):
+            interesante = False
+            columnas = []
+
+            # Se revisan las columnas con datos patrimoniales y de ingresos
+            for columna in list(df_curp.columns)[5:15]:
+                if declaracion_pvalue(curp, columna) <= 0.001:
+                    interesante = True
+                    columnas.append(columna)
+
+            if interesante:
+                lista.append([curp, len(columnas), columnas])
+
+        df_interesantes = pd.DataFrame(lista,
+                                    columns=["curp", "numero",
+                                                "columnas_interesantes"]).sort_values(by=["numero"],
+                                                                                    ascending=False).reset_index(drop=True)
+        df_interesantes.to_pickle(path)
+        return df_interesantes
+
+    else:
+        df_interesantes = pd.read_pickle(path)
+        return df_interesantes
