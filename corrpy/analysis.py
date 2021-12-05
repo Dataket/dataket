@@ -48,7 +48,7 @@ variable_x="anio", variable_y="valor_neto"):
         return anios[:], valores[:]
 
 
-def grafica_serie_temporal(anio, valor, cadena, path = 'bin/'):
+def grafica_serie_temporal(anio, valor, cadena, path = 'html_viz/'):
     """Regresión lineal de una serie temporal
 
     Se crea la gráfica de un par de arreglos y se les hace un ajuste
@@ -100,7 +100,7 @@ def grafica_serie_temporal(anio, valor, cadena, path = 'bin/'):
 
         # Se guarda el html para poder usarlo en la página web de Dataket 8)
         plotly.offline.plot(fig,
-        filename='/content/drive/MyDrive/Dataton_2021/scatter_'+cadena.replace(" ", "")+'.html')
+        filename=path+'scatter_'+cadena.replace(" ", "")+'.html')
 
         # Se muestra la imagen
         fig.show()
