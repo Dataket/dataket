@@ -188,8 +188,8 @@ def declaracion_pvalue(df_curp, curp, variable):
     """
 
     if curp in set(df_curp["curp"]):
-    columna = df_curp[variable]
-    registro = df_curp[df_curp["curp"]==curp][variable].iloc[0]
-    # Se promedia el número de registros de la muestra superiores
-    # al estadístico de prueba
-    return len(columna[columna<registro])/len(columna), len(columna[columna>registro])/len(columna)
+        columna = df_curp[variable]
+        registro = df_curp[df_curp["curp"]==curp][variable].iloc[0]
+        # Se promedia el número de registros de la muestra superiores
+        # al estadístico de prueba
+        return len(columna[columna<registro])/len(columna), len(columna[columna>registro])/len(columna)
