@@ -10,7 +10,7 @@ import seaborn as sns
 import plotly
 import plotly.express as px
 import plotly.graph_objects as go
-from .navigation import consultas, limpia_declaraciones
+from .navigation import agrupar_curp, consultas, limpia_declaraciones
 
 # Para ML
 from sklearn.cluster import KMeans
@@ -176,17 +176,18 @@ def agrupacion(data_x, n_clusters):
     sns.pairplot(hue="grupo", data=X)
 
 
-def declaracion_pvalue(df_curp, curp, variable):
+def declaracion_pvalue(curp, variable):
     """Se calcula el p-value del registro en la distribución de la variable dada
 
     Args:
-        df_curp ([type]): [description]
         curp ([type]): [description]
         variable ([type]): [description]
 
     Returns:
         [type]: [description]
     """
+
+    df_curp = agrupar_curp()
 
     if curp in set(df_curp["curp"]):
         columna = df_curp[variable]
