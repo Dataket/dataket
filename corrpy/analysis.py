@@ -128,7 +128,7 @@ def declaracion_muestra(df_sobre_declaraciones, variable_x, variable_y):
     lista = []
     for curp in set(df_sobre_declaraciones["curp"]):
 
-        anio, valor = declaracion_personal(df_curp, df_declaraciones, curp, variable_x, variable_y)
+        anio, valor = declaracion_personal(curp, variable_x, variable_y)
 
         # Se eliminan los datos que repiten año
         auxiliar = pd.DataFrame({'Anio': np.array(anio),
